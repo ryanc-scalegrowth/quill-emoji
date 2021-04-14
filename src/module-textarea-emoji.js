@@ -45,15 +45,11 @@ class TextAreaEmoji extends Module {
             let tabElementHolder = document.createElement('ul');
             tabToolbar.appendChild(tabElementHolder);
 
-            if (document.getElementById('emoji-close-div') === null) {
-                let closeDiv = document.createElement('div');
-                closeDiv.id = 'emoji-close-div';
-                closeDiv.addEventListener("click", fn_close, false);
-                document.getElementsByTagName('body')[0].appendChild(closeDiv);
-            }
-            else{
-                document.getElementById('emoji-close-div').style.display = "block";
-            }
+            let closeDiv = document.createElement('div');
+            closeDiv.id = 'emoji-close-div';
+            closeDiv.addEventListener("click", fn_close, false);
+            quill.container.appendChild(closeDiv);
+
             let panel = document.createElement('div');
             panel.id="tab-panel";
             ele_emoji_area.appendChild(panel);
@@ -102,7 +98,10 @@ TextAreaEmoji.DEFAULTS = {
 
 function fn_close(){
     let ele_emoji_plate = document.getElementById('textarea-emoji');
-    document.getElementById('emoji-close-div').style.display = "none";
+    let closeDiv = document.getElementById('emoji-close-div');
+    if (closeDiv) {
+      closeDiv.remove();
+    }
     if (ele_emoji_plate) {ele_emoji_plate.remove()}
 }
 
