@@ -58,12 +58,13 @@ function fn_showEmojiPalette(quill) {
   let ele_emoji_area = document.createElement('div');
   let selection = quill.getSelection();
   const selectionBounds = quill.getBounds(selection.index);
+  const lineHeight = selectionBounds.height;
   const editorBounds = quill.container.getBoundingClientRect();
   const selectionCenter = (selectionBounds.left + selectionBounds.right) / 2;
   const selectionMiddle = (selectionBounds.top + selectionBounds.bottom) / 2;
   const paletteLeft = editorBounds.left + selectionCenter + paletteWidthAndHeight <= document.documentElement.clientWidth ? selectionCenter : editorBounds.left - paletteWidthAndHeight;
-  const paletteTop = editorBounds.top + selectionMiddle + paletteWidthAndHeight + 10 <= document.documentElement.clientHeight ? selectionMiddle + 10 :
-    editorBounds.top + selectionMiddle - paletteWidthAndHeight - 10 >= 0 ? selectionMiddle - paletteWidthAndHeight - 10 :
+  const paletteTop = editorBounds.top + selectionMiddle + paletteWidthAndHeight + lineHeight <= document.documentElement.clientHeight ? selectionMiddle + lineHeight :
+    editorBounds.top + selectionMiddle - paletteWidthAndHeight - lineHeight >= 0 ? selectionMiddle - paletteWidthAndHeight - lineHeight :
       document.documentElement.clientHeight - paletteWidthAndHeight - editorBounds.top;
 
   quill.container.appendChild(ele_emoji_area);
